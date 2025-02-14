@@ -2,7 +2,6 @@
 session_start();
 include "test_input.php";
 
-$error_message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = test_input($_POST["username"] ?? "");
@@ -13,7 +12,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: checkout.php");
         exit();
     } else {
-        $error_message = "Invalid login. Username and password provided must match.";
+        header("Location: index.php");
+        exit;
     }
 }
 ?>
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form method="post">
             <h2>Customer Login</h2>
             <h4>Please input a valid username and password to proceed with your purchase</h4>
-            <p style="color:red;"><?php echo $error_message; ?></p>
+            <p style="color:red;">An incorrect login will automatically redirect you back to the homepage</p>
             Username: <input type="text" name="username" required /><br>
             <br>
             Password: <input type="password" name="password" required /><br>
